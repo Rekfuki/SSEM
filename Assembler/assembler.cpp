@@ -1,7 +1,3 @@
-//
-// Created by Andrius Navasaitis on 07/11/2018.
-//
-
 #include "assembler.h"
 #include <iostream>
 #include <regex>
@@ -89,7 +85,7 @@ std::vector<std::string> Assembler::passTwo(std::vector<std::string> data) {
 
             // If the label is in the symbol table
             if(labels.count(op)) {
-                ln = labels.find(op)->second;
+                unsigned long int ln = labels.find(op)->second;
                 bitLine |= bitMap.find(cmd)->second;
                 bitLine |= ln;
             } else {
