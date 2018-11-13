@@ -1,7 +1,3 @@
-//
-// Created by Andrius Navasaitis on 06/11/2018.
-//
-
 #ifndef MANCHESTERBABY_CPU_H
 #define MANCHESTERBABY_CPU_H
 
@@ -23,11 +19,7 @@ class CPU {
 
         void fetch();
         void execute();
-        void halt();
         void run();
-
-//        void dump_state();
-//        std::string assemble(unsigned int line);
 
         unsigned int get_ac();
         unsigned int get_ci();
@@ -42,6 +34,8 @@ private:
         unsigned int accumulator;
         unsigned int current_instruction;
         unsigned int present_instruction;
+
+        void print_control();
 
 };
 

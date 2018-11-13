@@ -1,7 +1,3 @@
-//
-// Created by Andrius Navasaitis on 03/11/2018.
-//
-
 #include <vector>
 #include <iostream>
 #include <stdio.h>
@@ -10,24 +6,9 @@
 
 SSEM::SSEM(std::vector<std::string> input) : cpu(store) {
     store.process_data(std::move(input));
-//    cpu = CPU(store);
-//    cpu = CPU();
-//    cpu = CPU(store);
 }
 
 SSEM::~SSEM() = default;
-
-//void SSEM::display_memory() {
-//    for(auto &i: store.get_data()) {
-//        std::cout << i << std::endl;
-//    }
-//}
-//
-//void SSEM::memory_string() {
-//    for(auto &line: store.string()) {
-//        std::cout << line << std::endl;
-//    }
-//}
 
 void SSEM::dump_state() {
     printf("\n------------------- SSE Machine State -------------------\n\n");
@@ -52,7 +33,6 @@ void SSEM::dump_state() {
                  assembly.c_str(), line);
     }
 
-
     unsigned int accumulator = cpu.get_ac();
     unsigned int current_instruction = cpu.get_ci();
     unsigned int present_instruction = cpu.get_pi();
@@ -68,11 +48,10 @@ void SSEM::dump_state() {
     std::reverse(pi_bits.begin(), pi_bits.end());
 
     printf("\nAC: 0x%08x - %s %d\nCI: 0x%08x - %s %d\nPI: 0x%08x - %s %s\n",
-            accumulator, ac_bits.c_str(), accumulator,
-            current_instruction, ci_bits.c_str(), current_instruction,
-            present_instruction, pi_bits.c_str(), assemble(present_instruction).c_str());
+           accumulator, ac_bits.c_str(), accumulator,
+           current_instruction, ci_bits.c_str(), current_instruction,
+           present_instruction, pi_bits.c_str(), assemble(present_instruction).c_str());
 }
-
 
 std::string SSEM::assemble(unsigned int line) {
     char out[32];
@@ -111,41 +90,4 @@ std::string SSEM::assemble(unsigned int line) {
 
 void SSEM::start() {
     cpu.run();
-
-
-//    for(;;) {
-//        current_instruction ++;
-//
-//        unsigned int instruction = store.line_at(current_instruction);
-//
-//        unsigned int data = instruction & 0x1F;
-//
-//        switch(instruction & 0xE000) {
-//            case 0x0: // JMP
-//                current_instruction = store.line_at(data);
-//                break;
-//            case 0x2000: // JRP
-//                current_instruction += store.line_at(data);
-//                break;
-//            case 0x4000: // LDN
-//                accumulator = (-1) * store.line_at(data);
-//                break;
-//            case 0x6000: // STO
-//                store.set_data(data, accumulator);
-//                break;
-//            case 0x8000: // SUB
-//                accumulator -= store.line_at(data);
-//                break;
-//            case 0xC000: // CMP
-//                if(accumulator < 0){
-//                    current_instruction++;
-//                }
-//                break;
-//            case 0xE000: // STP
-//                return;
-//            default:
-//                std::cout << "Error unknown instruction" << std::endl;
-//                return;
-//        }
-//    }
 }

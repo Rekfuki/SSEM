@@ -1,7 +1,3 @@
-//
-// Created by Andrius Navasaitis on 06/11/2018.
-//
-
 #include <iostream>
 #include "store.h"
 
@@ -26,15 +22,6 @@ unsigned int Store::line_at(unsigned int i) {
 
 void Store::set_data(unsigned int i, unsigned int data) {
     store.at(i) = data;
-}
-
-std::vector<std::string> Store::string() {
-    std::vector<std::string> data;
-    for(auto &line: store) {
-        data.push_back(std::bitset<32>(line).to_string());
-    }
-
-    return data;
 }
 
 unsigned int Store::str_to_uint32(const std::string &line) {
