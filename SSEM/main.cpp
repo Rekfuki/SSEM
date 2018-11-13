@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "ssem.h"
+#include "SSEM/ssem.h"
+#include "Assembler/assembler.h"
 
 int main(int argc, char* argv[]) {
     // Check for command line arguments

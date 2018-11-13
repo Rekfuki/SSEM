@@ -7,8 +7,19 @@
 
 #include <fstream>
 #include <vector>
+#include <map>
 
 class Assembler {
+
+    // regexGroups used to make it more clear which regex group is being refered to
+    enum regexGroups {
+        LBL = 1,
+        CMD,
+        OP,
+    };
+
+    std::map<std::string, unsigned long int> labels;
+
     public:
         Assembler();
         ~Assembler();
@@ -17,6 +28,8 @@ class Assembler {
 
     private:
         std::string trimWhiteSpaces(const std::string &s);
+        void passOne(std::vector<std::string> data);
+        std::vector<std::string> passTwo(std::vector<std::string> data);
 
 };
 
