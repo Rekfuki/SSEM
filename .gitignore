@@ -1,0 +1,9 @@
+*.out
+.DS_Store
+*/.idea/*
+**/cmake-build-debug
+CMakeLists.txt
+.idea*
+.vscode/
+docs/
+!.gitignore
