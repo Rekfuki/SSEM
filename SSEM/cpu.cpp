@@ -3,42 +3,60 @@
 #include "cpu.h"
 #include "ssem.h"
 
+
+// CPU constructor
 CPU::CPU(Store &store) : store(store), cpu_state(HALT),
 accumulator(0),current_instruction(0), present_instruction(0){
 }
 
+// CPU destructor
 CPU::~CPU() = default;
 
+// Fetch instruction
 void CPU::fetch() {
+    // Increment the CI
     current_instruction++;
+
+    // Get the PI from store at current instructions line number
     present_instruction = store.line_at(current_instruction & 0x1F);
 }
 
+// 0000 0000 0000 0000 0000 0000    0x0000
+// 0000 0000 0010 0000 0000 0000    0x2000
+// 0000 0000 0100 0000 0000 0000    0x4000
+// 0000 0000 0110 0000 0000 0000    0x6000
+// 0000 0000 1000 0000 0000 0000    0x8000
+// 0000 0000 1100 0000 0000 0000    0xC000
+// 0000 0000 1110 0000 0000 0000    0xE000
+
+// Execute instruction
 void CPU::execute() {
+
+    // get the line of the PI
     unsigned int data = present_instruction & 0x1F;
 
     switch(present_instruction & 0xE000) {
-        case 0x0: // JMP
+        case 0x0000:    // 0000 0000 0000 0000 0000 0000    0x0000
             current_instruction = store.line_at(data);
             break;
-        case 0x2000: // JRP
+        case 0x2000:    // 0000 0000 0010 0000 0000 0000    0x2000
             current_instruction += store.line_at(data);
             break;
-        case 0x4000: // LDN
+        case 0x4000:    // 0000 0000 0100 0000 0000 0000    0x4000
             accumulator = (-1) * store.line_at(data);
             break;
-        case 0x6000: // STO
+        case 0x6000:    // 0000 0000 0110 0000 0000 0000    0x6000
             store.set_data(data, accumulator);
             break;
-        case 0x8000: // SUB
+        case 0x8000:    // 0000 0000 1000 0000 0000 0000    0x8000
             accumulator -= store.line_at(data);
             break;
-        case 0xC000: // CMP
+        case 0xC000:    // 0000 0000 1100 0000 0000 0000    0xC000
             if(accumulator < 0) {
                 current_instruction++;
             }
             break;
-        case 0xE000: // STP
+        case 0xE000:    // 0000 0000 1110 0000 0000 0000    0xE000
             cpu_state = HALT;
             return;
         default:
@@ -47,9 +65,11 @@ void CPU::execute() {
             return;
     }
 
+    // Set the state to fetch
     cpu_state = FETCH;
 }
 
+// Starts the cpu cycle
 void CPU::run() {
 
     // Check if the cpu initialization was correct
@@ -58,9 +78,13 @@ void CPU::run() {
         return;
     }
 
+    // Set the state to fetch
     cpu_state = FETCH;
 
+    // Print the first line of the control
     print_control();
+
+    // While the cpu is not halted, continue with the cycle
     while(cpu_state != HALT) {
 
         switch (cpu_state) {
@@ -81,6 +105,8 @@ void CPU::run() {
 
 // Prints out the control
 void CPU::print_control() {
+
+    // Present accumulator, ci and pi in 32 bit binary string
     std::string ac_bits = std::bitset<32>(accumulator).to_string();
     std::reverse(ac_bits.begin(), ac_bits.end());
 
@@ -97,14 +123,17 @@ void CPU::print_control() {
 
 }
 
+// Get accumulator
 unsigned int CPU::get_ac() {
     return accumulator;
 }
 
+// Get current instruction
 unsigned int CPU::get_ci() {
     return current_instruction;
 }
 
+// Get present instruction
 unsigned int CPU::get_pi() {
     return present_instruction;
 }

@@ -4,6 +4,8 @@
 
 #include "store.h"
 
+
+// Enumeration of the cpu states for readability
 enum CPU_STATE {
     FETCH,
     EXECUTE,
@@ -14,28 +16,29 @@ class CPU {
 
     public:
 
-        explicit CPU(Store &store);
-        ~CPU();
+        explicit CPU(Store &store); // Constructor
+        ~CPU();                     // Destructor
 
-        void fetch();
-        void execute();
-        void run();
+        void fetch();               // Fetch instruction
+        void execute();             // Execute instruction
+        void run();                 // Run the cpu
 
+        // Getters
         unsigned int get_ac();
         unsigned int get_ci();
         unsigned int get_pi();
 
 private:
 
-        Store &store;
+        Store &store;                       // Store object
 
-        CPU_STATE cpu_state;
+        CPU_STATE cpu_state;                // CPU state
 
-        unsigned int accumulator;
-        unsigned int current_instruction;
-        unsigned int present_instruction;
+        unsigned int accumulator;           // Accumulator
+        unsigned int current_instruction;   // Current instruction
+        unsigned int present_instruction;   // Present instruction
 
-        void print_control();
+        void print_control();               // Prints the control
 
 };
 

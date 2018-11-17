@@ -7,17 +7,17 @@
 
 class SSEM {
     public:
-        explicit SSEM(std::vector<std::string> input);
-        ~SSEM();
+        explicit SSEM(std::vector<std::string> input);  // SSEM constructor
+        ~SSEM();                                        // SSEM Destructor
 
-        void start();
-        void dump_state();
-        static std::string assemble(unsigned int line);
+        void start();                                   // Start the SSEM
+        void dump_state();                              // Dump the state of the SSEM
+        static std::string assemble(unsigned int line); // Assemble machine code into asm instruction
 
     private:
 
-        Store store;
-        CPU cpu;
+        Store store; // Store object
+        CPU cpu;     // CPU object
 };
 
 
