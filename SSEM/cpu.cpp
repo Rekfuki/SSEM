@@ -67,14 +67,20 @@ void CPU::execute() {
 }
 
 // Prints current cycle if step  mode is enabled
-void CPU::step_m() {
-    if(cpu_state == FETCH) {
-        std::cout << "Fetched instruction: " << SSEM::assemble(present_instruction) << "\n" ;
+void CPU::step_m(bool step_mode) {
+    if(!step_mode) {
+        return;
     }
 
-    if(cpu_state == EXECUTE) {
+    if(cpu_state == FETCH) {
+        std::cout << "Fetched instruction: " << SSEM::assemble(present_instruction) << "\n" ;
+    } else if(cpu_state == EXECUTE) {
         std::cout << "Executed instruction: " << SSEM::assemble(present_instruction) << "\n" ;
+    } else {
+        std::cout << "CPU Halted\n";
     }
+
+    getchar();
 }
 
 // Starts the cpu cycle
@@ -95,24 +101,19 @@ void CPU::run(bool step_mode) {
     // While the cpu is not halted, continue with the cycle
     while(cpu_state != HALT) {
 
-        // If step mode is enabled
-        if(step_mode) {
-            getchar();
-        }
-
         switch (cpu_state) {
 
             case FETCH:
 
                 fetch();
-                step_m();
+                step_m(step_mode);
                 cpu_state = EXECUTE;
 
                 break;
             case EXECUTE:
 
                 execute();
-                step_m();
+                step_m(step_mode);
 
                 if(cpu_state != HALT) {
                     cpu_state = FETCH;

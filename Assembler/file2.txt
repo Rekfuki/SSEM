@@ -1,26 +1,10 @@
-VAR 0
-LDN 18
-LDN 19
-SUB 20
-CMP
-JRP 21
-SUB 22
-STO 24
-LDN 22
-SUB 23
-STO 20
-LDN 20
-STO 22
-LDN 24
-CMP
-JMP 25
-JMP 18
-STP
-VAR 0
-VAR -989
-VAR 988
-VAR -3
-VAR -988
-VAR 1
-VAR 0
-VAR 16
+; Wil  perform calculation 15 - 10 = 5
+          VAR 0       ; Declare 32-bit variable to fill space
+START:    LDN NUM01   ; Load the variable NUM01
+          SUB NUM02   ; Subtract the variable NUM01
+          STO NUM03   ; Load the result back into the memory
+END:      STP
+; Vars
+NUM01:    VAR -15     ; First var
+NUM02:    VAR 10      ; Second var
+NUM03:    VAR 0       ; Holds the result

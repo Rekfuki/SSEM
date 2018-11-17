@@ -39,7 +39,7 @@ private:
         unsigned int present_instruction;   // Present instruction
 
         void print_control();               // Prints the control
-        void step_m();                      // Print if step mode is on
+        void step_m(bool step_mode);                      // Print if step mode is on
 
 };
 
