@@ -10,7 +10,7 @@ class SSEM {
         explicit SSEM(std::vector<std::string> input);  // SSEM constructor
         ~SSEM();                                        // SSEM Destructor
 
-        void start();                                   // Start the SSEM
+        void start(bool step_mode);                     // Start the SSEM
         void dump_state();                              // Dump the state of the SSEM
         static std::string assemble(unsigned int line); // Assemble machine code into asm instruction
 

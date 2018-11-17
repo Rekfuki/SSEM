@@ -21,7 +21,7 @@ class CPU {
 
         void fetch();               // Fetch instruction
         void execute();             // Execute instruction
-        void run();                 // Run the cpu
+        void run(bool step_mode);   // Run the cpu
 
         // Getters
         unsigned int get_ac();
@@ -39,6 +39,7 @@ private:
         unsigned int present_instruction;   // Present instruction
 
         void print_control();               // Prints the control
+        void step_m();                      // Print if step mode is on
 
 };
 

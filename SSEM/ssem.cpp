@@ -71,13 +71,6 @@ std::string SSEM::assemble(unsigned int line) {
 
     // Get the line number
     int data = static_cast<int>(line & 0x1F);
-    // 0000 0000 0000 0000 0000 0000    0x0000
-    // 0000 0000 0010 0000 0000 0000    0x2000
-    // 0000 0000 0100 0000 0000 0000    0x4000
-    // 0000 0000 0110 0000 0000 0000    0x6000
-    // 0000 0000 1000 0000 0000 0000    0x8000
-    // 0000 0000 1100 0000 0000 0000    0xC000
-    // 0000 0000 1110 0000 0000 0000    0xE000
 
     // switch based on bits set by using 111 mask
     switch(line & 0xE000) {
@@ -107,6 +100,6 @@ std::string SSEM::assemble(unsigned int line) {
 }
 
 // Starts the processor cycle
-void SSEM::start() {
-    cpu.run();
+void SSEM::start(bool step_mode) {
+    cpu.run(step_mode);
 }
